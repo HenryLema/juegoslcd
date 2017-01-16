@@ -1,0 +1,125 @@
+// Universidad Tecnica del Norte
+// Henry Lema
+// Juego de palabras en LCD
+#include <LiquidCrystal.h> // Agregamos la libreria
+LiquidCrystal lcd (8, 9, 10, 11, 12, 13); // Pines a usar
+char nombre1[10]={' ','J',' ','U',' ','E',' ','G',' ','O'}; // vector1
+char nombre2[10]={'J',' ','U',' ','E',' ','G',' ','O',' '};// vector2
+char nombre3[10]={'J','U','E','G','O','.','.','.','.','.'};// vector3
+int i=0;  //recorrido
+int j=0;  //recorrido  
+String datos;
+void setup() {
+lcd.begin(16,2); // tipo de lcd 
+Serial.begin(9600);
+
+  
+lcd.print("Ingrese el numero");
+  lcd.setCursor(0,1);
+  lcd.print("de un juego");
+  delay (700);
+   lcd.clear();
+   
+}
+
+void loop() {
+
+delay (500);
+metodo1();// metodo juego1
+delay (500);// retardo
+metodo2();// metodo juego2
+delay (500);// retardo
+metodo3();// metodo juego3
+delay (500);}// retardo
+
+
+
+
+void metodo1(){
+if (Serial.available()>0)//puerto recibe dato
+{
+  if(Serial.read()=='1') //si recibimos letra A
+  {
+ for(; i<11;i++){// escriba y bore saltando una
+ j=1-j;
+  lcd.setCursor(i,j);
+  lcd.print (nombre1[i]);//imprime en la variable q esta corriendo
+  delay(200);
+  }
+  j=1;
+for(;i>0;i--){
+  j=1-j;
+  lcd.setCursor(i,j);
+  lcd.print (' ');//imprime en la variable q esta corriendo
+  delay(200);
+  }
+i=0;  
+}
+
+  }
+  else
+  {
+    lcd.print("Ingrese otro");
+  lcd.setCursor(0,1);
+  lcd.print("numero de juego");
+  delay (700);
+   lcd.clear();
+  }
+}
+
+void metodo2(){
+if (Serial.available()>0)// dato
+{
+  if(Serial.read()=='2') //si  A
+  {
+ for(; i<11;i++){// escribe y borra la letra
+ j=1-j;
+  lcd.setCursor(i,j);//variable para realizar el salto
+  lcd.print (nombre2[i]);//vizualiza la letra en la posicion de la lcd
+  delay(200);
+  }
+  j=1;
+  delay(200);//retardo
+  lcd.clear();//limpia lcd
+}
+
+  }
+  else
+  {
+    lcd.print("Ingrese otro");// mensaje
+  lcd.setCursor(0,1);// ingresamos otro numero
+  lcd.print("numero");//mensaje
+  delay (500);
+   lcd.clear();// limpia lcd
+  }
+
+}
+
+
+ void metodo3(){
+ if (Serial.available()>0)// dato
+{
+  if(Serial.read()=='3') // si  A
+  {
+ for(; i<11;i++){// vizualiza
+  lcd.setCursor(i,0); //posicion
+  lcd.print (nombre3[i]);//imprime en la lcd la posicion
+  delay(200);
+  }
+  lcd.clear();
+}
+
+  }
+  else
+  {
+   lcd.print("Ingrese otro"); 
+  lcd.setCursor(0,1); //ingresamos otra opcion
+  lcd.print("numero");
+  delay (500);// retardo
+   lcd.clear();
+  }
+ }
+
+
+
+
